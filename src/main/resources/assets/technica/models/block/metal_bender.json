@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "technica:block/machine_bottom",
+    "front": "technica:block/metal_bender_front",
+    "side": "technica:block/machine_side",
+    "top": "technica:block/metal_bender_top"
+  }
+}
