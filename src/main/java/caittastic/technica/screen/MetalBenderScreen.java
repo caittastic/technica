@@ -15,7 +15,12 @@ public class MetalBenderScreen extends AbstractContainerScreen<MetalBenderMenu> 
         super(pMenu, pPlayerInventory, pTitle);
     }
     /* variable */
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Technica.MOD_ID, "textures/gui/gem_cutter_gui.png"); //the gui texture of the gem cutter station
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Technica.MOD_ID, "textures/gui/metal_press_gui.png"); //the gui texture of the gem cutter station
+    int barLocationX = 73; //top left pixel x coordinate of the gui progress bar
+    int barLocationY = 39; //top left pixel y coordinate of the gui progress bar
+    int barOverlayX = 176; //top left pixel x coordinate of the progress bar overlay
+    int barOverlayY = 0; //top left pixel y coordinate of the progress bar overlay
+
     /* implemented methods */
     //"boilerplate code" that i dont know what does, something to do with drawing the texture on the screen
     @Override
@@ -26,10 +31,11 @@ public class MetalBenderScreen extends AbstractContainerScreen<MetalBenderMenu> 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
 
+        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
         if(menu.isCrafting()) {
-            blit(pPoseStack, x + 102, y + 41, 176, 0, 8, menu.getScaledProgress());
+
+            blit(pPoseStack, x + barLocationX, y + barLocationY, barOverlayX, barOverlayY,  menu.getScaledProgress(), 8);
         }
     }
 

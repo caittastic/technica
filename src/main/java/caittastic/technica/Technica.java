@@ -3,8 +3,12 @@ package caittastic.technica;
 import caittastic.technica.block.ModBlockRegistry;
 import caittastic.technica.blockentity.ModBlockEntityRegistry;
 import caittastic.technica.item.ModItemRegistry;
+import caittastic.technica.screen.MetalBenderScreen;
 import caittastic.technica.screen.ModMenuRegistry;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,6 +32,9 @@ public class Technica {
         ModBlockEntityRegistry.BLOCK_ENTITIES.register(bus);
         ModMenuRegistry.MENUS.register(bus);
 
+        // Register the doClientStuff method for modloading
+        bus.addListener(this::clientSetup);
+
         bus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -44,5 +51,11 @@ public class Technica {
         public static void onClientSetup(FMLClientSetupEvent event)
         {
         }
+    }
+
+    private void clientSetup(final FMLCommonSetupEvent event){
+        MenuScreens.register(ModMenuRegistry.METAL_BENDER_MENU.get(), MetalBenderScreen::new);
+        event.enqueueWork(()->{
+        });
     }
 }

@@ -22,7 +22,7 @@ public class MetalBenderMenu extends AbstractContainerMenu {
     //i am incredebly confused, but it will hopefully work?
     public MetalBenderMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuRegistry.METAL_BENDER_MENU.get(), pContainerId); //the first one needs to be the matching menu type to the block entity type
-        checkContainerSize(inv, 4);//pMinSize is how many slots your block entity has, i wonder if you can use a public final to not have to type the same number twice
+        checkContainerSize(inv, MetalBenderBlockEntity.SLOT_COUNT);//pMinSize is how many slots your block entity has, i wonder if you can use a public final to not have to type the same number twice
         blockEntity = ((MetalBenderBlockEntity) entity);
         this.level = inv.player.level;
         this.data = data;
@@ -32,10 +32,10 @@ public class MetalBenderMenu extends AbstractContainerMenu {
 
         //indexes are the same as the ones in the block entities itemhandler, the x and y positions match the sprites of the slots in the texture
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 34, 40));
-            this.addSlot(new SlotItemHandler(handler, 1, 57, 18));
-            this.addSlot(new SlotItemHandler(handler, 2, 103, 18));
-            this.addSlot(new ModResultSlot(handler, 3, 80, 60));
+            this.addSlot(new SlotItemHandler(handler, 0, 53, 17)); //input slot
+            this.addSlot(new ModResultSlot(handler, 1, 116, 35)); //result slot
+            this.addSlot(new SlotItemHandler(handler, 2, 53, 53)); //program slot
+            this.addSlot(new SlotItemHandler(handler, 3, 8, 53)); //fuel slot
         });
 
         addDataSlots(data);
@@ -119,12 +119,12 @@ public class MetalBenderMenu extends AbstractContainerMenu {
     public int getScaledProgress() {
         int progress = this.data.get(0); //current progress of the craft
         int maxProgress = this.data.get(1);  // Max Progress of the craft
-        int progressBarWidth = 34; // The height/width of the progress bar
+        int progressBarLength = 34; // The height/width of the progress bar
 
         //if the max progress is not zero, and the progress is not zero
         //return progress * (progress bar width / max progress)
         //else, return 0
-        return maxProgress != 0 && progress != 0 ? progress * (progressBarWidth / maxProgress) : 0;
+        return maxProgress != 0 && progress != 0 ? progress * (progressBarLength / maxProgress) : 0;
     }
     //is the inventory crafting
     public boolean isCrafting() {

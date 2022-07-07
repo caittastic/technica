@@ -15,6 +15,6 @@ public class ModMenuRegistry {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
 
-    public static final RegistryObject<MenuType<MetalBenderMenu>> METAL_BENDER_MENU = registerMenuType(MetalBenderMenu::new, "metal_bender_menu");
+    public static final RegistryObject<MenuType<MetalBenderMenu>> METAL_BENDER_MENU = registerMenuType(MetalBenderMenu::new,"metal_bender_menu");
 
 }

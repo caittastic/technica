@@ -33,6 +33,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider {
+    //----------------------------------------------------------------------------------------------------------------//
     /* constructor */
     public MetalBenderBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntityRegistry.METAL_BENDER_BLOCK_ENTITY.get(), blockPos, blockState);
@@ -59,6 +60,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
         };
     }
 
+    //----------------------------------------------------------------------------------------------------------------//
     /* variables */
     //"is important" but i dont know why or what for
     //the size is for every number of slots in the inventory
@@ -70,26 +72,27 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty(); //no clue what this does
     protected final ContainerData data; //something to do with transfering NBT data between block entity, menu, and screen
-    public static int SLOT_COUNT = 4; //the amount of slots in our inventory
     private int progress = 0; //how much progress has been made
     private int maxProgress = 72; //how much progress is required for a craft to complete, basically how many ticks it takes
+    public static int SLOT_COUNT = 4; //the amount of slots in our inventory
+    public static int INPUT_SLOT = 0;
+    public static int OUTPUT_SLOT = 1;
+    public static int PROGRAM_SLOT = 2;
+    public static int FUEL_SLOT = 3;
 
+    //----------------------------------------------------------------------------------------------------------------//
     /* base methods */
     @Override //this is the name that shows up in the block gui
     public Component getDisplayName() {
         return Component.literal("metal bender");
     }
 
-    //idk what this does
-    @Nullable
-    @Override
+    @Nullable @Override //idk what this does
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new MetalBenderMenu(pContainerId, pInventory, this, this.data);
     }
 
-    //is something to do with helping other mods interact with my block
-    @Nonnull
-    @Override
+    @Nonnull @Override //is something to do with helping other mods interact with my block
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
@@ -98,22 +101,19 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
         return super.getCapability(cap, side);
     }
 
-    //idk what this does
-    @Override
+    @Override //idk what this does
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
     }
 
-    //idk what this does
-    @Override
+    @Override //idk what this does
     public void invalidateCaps()  {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
     }
-    
-    //saves the inventory and crafting progress data to NBT on saving the game
-    @Override
+
+    @Override //saves the inventory and crafting progress data to NBT on saving the game
     protected void saveAdditional(@NotNull CompoundTag tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         tag.putInt("metal_bender.progress", progress);
@@ -128,6 +128,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
         progress = nbt.getInt("metal_bender.progress");
     }
 
+    //----------------------------------------------------------------------------------------------------------------//
     /* custom methods */
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots()); //creates a simplecontainer containing the amount of slots in our itemhandler
@@ -138,7 +139,6 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
         Containers.dropContents(this.level, this.worldPosition, inventory); //drops the contents of the simplecontainer
     }
 
-
     //gets called every tick
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, MetalBenderBlockEntity pBlockEntity) {
         if(hasRecipe(pBlockEntity)) { //if the block entity has a valid recipie
@@ -148,48 +148,22 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
                 craftItem(pBlockEntity); //craft the item
             }
         } else { //if the block entity does not have a valic recipe
-            pBlockEntity.resetProgress();  //reset the crafting progress to 0
+            pBlockEntity.progress = 0;;  //reset the crafting progress to 0
             setChanged(pLevel, pPos, pState); //set an change has happened
         }
     }
 
     //checks if the container contains a valid recipie
     private static boolean hasRecipe(MetalBenderBlockEntity entity) {
-        boolean hasItemInWaterSlot = PotionUtils.getPotion(entity.itemHandler.getStackInSlot(0)) == Potions.WATER;
-        boolean hasItemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == Items.IRON_INGOT;
-        boolean hasItemInSecondSlot = entity.itemHandler.getStackInSlot(2).getItem() == Items.DIAMOND_SWORD;
-
-        return hasItemInWaterSlot && hasItemInFirstSlot && hasItemInSecondSlot;
-    }
-
-    private static boolean hasWaterInWaterSlot(MetalBenderBlockEntity entity) {
-        return PotionUtils.getPotion(entity.itemHandler.getStackInSlot(0)) == Potions.WATER;
-    }
-
-    private static boolean hasToolsInToolSlot(MetalBenderBlockEntity entity) {
-        return entity.itemHandler.getStackInSlot(2).getItem() == Items.DIAMOND_SWORD;
+        boolean hasItemInFuelSlot = entity.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.REDSTONE;
+        boolean hasItemInInputSlot = entity.itemHandler.getStackInSlot(INPUT_SLOT).getItem() == Items.IRON_INGOT;
+        boolean hasItemInProgramSlot = entity.itemHandler.getStackInSlot(PROGRAM_SLOT).getItem() == Items.FLINT_AND_STEEL;
+        return hasItemInFuelSlot && hasItemInInputSlot && hasItemInProgramSlot;
     }
 
     private static void craftItem(MetalBenderBlockEntity entity) {
-        entity.itemHandler.extractItem(0, 1, false);
-        entity.itemHandler.extractItem(1, 1, false);
-        entity.itemHandler.getStackInSlot(2).hurt(1, (RandomSource) new Random(), null);
-
-        entity.itemHandler.setStackInSlot(3, new ItemStack(ModItemRegistry.STEEL_INGOT.get(),
-                entity.itemHandler.getStackInSlot(3).getCount() + 1));
-    }
-
-    private void resetProgress() {
-        this.progress = 0;
-    }
-
-    //checks if the item can be inserted into the output slot
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
-        return inventory.getItem(3).getItem() == output.getItem() || inventory.getItem(3).isEmpty();
-    }
-
-    //checks if the amount of items attempting to be added can be inserted into the output slot
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(3).getMaxStackSize() > inventory.getItem(3).getCount();
+        entity.itemHandler.extractItem(INPUT_SLOT, 1, false);
+        entity.itemHandler.extractItem(FUEL_SLOT, 1, false);
+        entity.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(ModItemRegistry.STEEL_INGOT.get(), entity.itemHandler.getStackInSlot(3).getCount() + 1));
     }
 }
