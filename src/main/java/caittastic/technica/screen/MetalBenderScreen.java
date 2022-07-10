@@ -30,12 +30,9 @@ public class MetalBenderScreen extends AbstractContainerScreen<MetalBenderMenu> 
         RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-
-
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
         if(menu.isCrafting()) {
-
-            blit(pPoseStack, x + barLocationX, y + barLocationY, barOverlayX, barOverlayY,  menu.getScaledProgress(), 8);
+            blit(pPoseStack, x + barLocationX, y + barLocationY, barOverlayX, barOverlayY, getMenu().getScaledProgress(34), 8);
         }
     }
 

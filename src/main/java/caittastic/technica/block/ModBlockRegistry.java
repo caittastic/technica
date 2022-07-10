@@ -28,6 +28,9 @@ public class ModBlockRegistry {
         return ModItemRegistry.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     }
     //registering blocks
-    public static final RegistryObject<Block> METAL_BENDER = registerBlock("metal_bender", () -> new MetalBenderBlock(BlockBehaviour.Properties.of(Material.NETHER_WOOD)), ModGenericRegistry.TECHNICA_TAB);
+    public static final RegistryObject<Block> METAL_BENDER = registerBlock("metal_bender", () -> new MetalBenderBlock(BlockBehaviour.
+            Properties.of(Material.METAL).
+            lightLevel(state -> state.getValue(MetalBenderBlock.LIT) ? 5 : 0)
+    ), ModGenericRegistry.TECHNICA_TAB);
 
 }

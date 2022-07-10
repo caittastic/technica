@@ -3,6 +3,7 @@ package caittastic.technica;
 import caittastic.technica.block.ModBlockRegistry;
 import caittastic.technica.blockentity.ModBlockEntityRegistry;
 import caittastic.technica.item.ModItemRegistry;
+import caittastic.technica.recipe.ModRecipeRegistry;
 import caittastic.technica.screen.MetalBenderScreen;
 import caittastic.technica.screen.ModMenuRegistry;
 import com.mojang.logging.LogUtils;
@@ -31,6 +32,7 @@ public class Technica {
         ModBlockRegistry.BLOCKS.register(bus);
         ModBlockEntityRegistry.BLOCK_ENTITIES.register(bus);
         ModMenuRegistry.MENUS.register(bus);
+        ModRecipeRegistry.SERIALIZERS.register(bus);
 
         // Register the doClientStuff method for modloading
         bus.addListener(this::clientSetup);

@@ -116,15 +116,15 @@ public class MetalBenderMenu extends AbstractContainerMenu {
         }
     }
     //returns the progress of the craft in how many pixels of the progress bar should be displayed
-    public int getScaledProgress() {
+    public int getScaledProgress(int progressBarLength) {
         int progress = this.data.get(0); //current progress of the craft
         int maxProgress = this.data.get(1);  // Max Progress of the craft
-        int progressBarLength = 34; // The height/width of the progress bar
 
         //if the max progress is not zero, and the progress is not zero
         //return progress * (progress bar width / max progress)
         //else, return 0
-        return maxProgress != 0 && progress != 0 ? progress * (progressBarLength / maxProgress) : 0;
+        return maxProgress != 0 && progress !=0 ? progress * progressBarLength / maxProgress: 0;
+
     }
     //is the inventory crafting
     public boolean isCrafting() {

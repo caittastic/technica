@@ -1,0 +1,11 @@
+{
+  "type": "technica:metal_bending",
+  "ingredients": [
+    {
+      "item": "technica:steel_ingot"
+    }
+  ],
+  "output": {
+    "item": "technica:steel_plate"
+  }
+}

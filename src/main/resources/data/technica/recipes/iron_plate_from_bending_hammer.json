@@ -1,0 +1,11 @@
+{
+  "type": "technica:metal_bending",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "output": {
+    "item": "technica:iron_plate"
+  }
+}
