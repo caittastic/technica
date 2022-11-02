@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -30,11 +29,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
-import java.util.Random;
 
 public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider {
-    //----------------------------------------------------------------------------------------------------------------//
-    /* constructor */
+    //-------------------------------------------------------constructor-------------------------------------------------------//
     public MetalBenderBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntityRegistry.METAL_BENDER_BLOCK_ENTITY.get(), blockPos, blockState);
         //something to do with transfering NBT data between block entity, menu, and screen, but im really not sure
@@ -64,8 +61,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
         };
     }
 
-    //----------------------------------------------------------------------------------------------------------------//
-    /* variables */
+    //-------------------------------------------------------variables-------------------------------------------------------//
     //"is important" but i dont know why or what for
     //the size is for every number of slots in the inventory
     private final ItemStackHandler itemHandler = new ItemStackHandler(SLOT_COUNT){
@@ -87,8 +83,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
         return this.progress > 0;
     }
 
-    //----------------------------------------------------------------------------------------------------------------//
-    /* base methods */
+    //-------------------------------------------------------base methods-------------------------------------------------------//
     @Override //this is the name that shows up in the block gui
     public Component getDisplayName() {
         return Component.translatable("block.technica.metal_bender");
@@ -135,8 +130,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
         progress = nbt.getInt("metal_bender.progress");
     }
 
-    //----------------------------------------------------------------------------------------------------------------//
-    /* custom methods */
+    //-------------------------------------------------------custom methods-------------------------------------------------------//
     //handles dropping the block and its inventory on breaking 
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots()); //creates a simplecontainer containing the amount of slots in our itemhandler
@@ -214,7 +208,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
 
     //checks if the container has tool in program slot
     private static boolean hasToolsInToolSlot(MetalBenderBlockEntity entity) {
-        return entity.itemHandler.getStackInSlot(PROGRAM_SLOT).getItem() == ModItemRegistry.FORGE_HAMMER.get();
+        return entity.itemHandler.getStackInSlot(PROGRAM_SLOT).getItem() == ModItemRegistry.HAMMER.get();
     }
 
     //resets the crafting progress

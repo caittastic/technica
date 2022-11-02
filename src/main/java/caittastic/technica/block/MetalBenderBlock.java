@@ -68,7 +68,7 @@ public class MetalBenderBlock extends BaseEntityBlock {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof MetalBenderBlockEntity) {
-                NetworkHooks.openGui(((ServerPlayer)pPlayer), (MetalBenderBlockEntity)entity, pPos);
+                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (MetalBenderBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }

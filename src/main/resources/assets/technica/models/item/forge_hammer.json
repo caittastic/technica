@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "technica:item/forge_hammer"
+    "layer0": "technica:item/hammer"
   }
 }
