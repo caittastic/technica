@@ -87,7 +87,7 @@ public class MetalBenderBlock extends BaseEntityBlock {
 
 
 
-    //i dont know what this does
+    //ticks the block entity?
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {

@@ -1,0 +1,24 @@
+// 1.19.2	2022-11-05T12:23:10.096002	Item Models: technica
+00226cd07b0fb75e717fb6fb541456d4dbcc6a62 assets/technica/models/item/basic_circuit.json
+c3e46d907ee7940d654eb2e70fd7d109f06d53f5 assets/technica/models/item/bronze_ingot.json
+e92a49a5f4ca92eaee0f8cf65956c45459eadb14 assets/technica/models/item/bronze_plate.json
+fb06816ff37aae3426eb40fa3bcd10695c721f77 assets/technica/models/item/copper_plate.json
+fd4f69c3eed89647b3cb722c97a8887437d6cb01 assets/technica/models/item/copper_wire.json
+59fb9253e5b90f3c666fa6353ec0017e60bea7e9 assets/technica/models/item/cutters.json
+209c024e1eb37af8a012d3c329da3dc731f52809 assets/technica/models/item/fuse.json
+4c2daf95b7e5ae578b0d15adee7f378ef87f9ed5 assets/technica/models/item/gallium.json
+21b43fadc28efc4e56f670218d9197d85464f0ce assets/technica/models/item/hammer.json
+4a48de540fde1421a396f5799fd4bd8c3efd659a assets/technica/models/item/insulated_copper_wire.json
+c108dab3264dabb8deb10e07b74d2906f2c0e5a7 assets/technica/models/item/iron_plate.json
+13690f26f4ab9d7561274715f689df55ea91c16e assets/technica/models/item/latex_bottle.json
+2dddbe8a6931c39c9d9d83ca75b836294d5350c2 assets/technica/models/item/latex_clump.json
+469a5740db2b5d7ed68b6951e82358e5ced5245c assets/technica/models/item/metal_bender.json
+2e44ba21aee46395896a9ba7e590e24797b81e52 assets/technica/models/item/platinum_ingot.json
+46b55575bd00b9e7522aede6b83b8e090541afcf assets/technica/models/item/rubber.json
+736e5c4d6bff4a016a249ab7df2f4d5f444b1d12 assets/technica/models/item/screwdriver.json
+bc77cbd441496a60c991bcbaef67bd461dc50e59 assets/technica/models/item/steel_ingot.json
+ea977a1e513e67a6bd3be2afed9a59c254d3038b assets/technica/models/item/steel_plate.json
+4938fa9ff88999255e36424ed5b41d9f0b4fd657 assets/technica/models/item/tin_casing.json
+3da411b59a4f3d0d8c1bd8b4a2582b772af4794f assets/technica/models/item/tin_ingot.json
+587e1321e4b4ef6f983e022a6e2f46b113a09662 assets/technica/models/item/tin_plate.json
+86dd86c408fa8df88b690f1d258bcdeef36849d0 assets/technica/models/item/tin_wire.json

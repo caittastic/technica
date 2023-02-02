@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "technica:block/machine_bottom",
+    "front": "technica:block/generator_front",
+    "side": "technica:block/machine_side",
+    "top": "technica:block/generator_top"
+  }
+}

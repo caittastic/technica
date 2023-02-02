@@ -1,7 +1,8 @@
 package caittastic.technica.blockentity;
 
 import caittastic.technica.Technica;
-import caittastic.technica.block.ModBlockRegistry;
+import caittastic.technica.block.GeneratorBlock;
+import caittastic.technica.block.ModBlocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,5 +17,9 @@ public class ModBlockEntityRegistry {
 
     public static final RegistryObject<BlockEntityType<MetalBenderBlockEntity>> METAL_BENDER_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("metal_bender_block_entity", () ->
-            BlockEntityType.Builder.of(MetalBenderBlockEntity::new, ModBlockRegistry.METAL_BENDER.get()).build(null));
+            BlockEntityType.Builder.of(MetalBenderBlockEntity::new, ModBlocks.METAL_BENDER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<GeneratorBlockEntity>> GENERATOR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("generator_block_entity", () ->
+                    BlockEntityType.Builder.of(GeneratorBlockEntity::new, ModBlocks.GENERATOR.get()).build(null));
 }

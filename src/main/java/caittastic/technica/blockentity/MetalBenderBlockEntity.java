@@ -1,8 +1,10 @@
 package caittastic.technica.blockentity;
 
-import caittastic.technica.item.ModItemRegistry;
+import caittastic.technica.block.MetalBenderBlock;
+import caittastic.technica.block.ModBlocks;
+import caittastic.technica.item.ModItems;
 import caittastic.technica.recipe.MetalBenderRecipe;
-import caittastic.technica.screen.MetalBenderMenu;
+import caittastic.technica.menuScreen.MetalBenderMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,14 +22,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.Optional;
 
 public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider {
@@ -86,7 +91,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
     //-------------------------------------------------------base methods-------------------------------------------------------//
     @Override //this is the name that shows up in the block gui
     public Component getDisplayName() {
-        return Component.translatable("block.technica.metal_bender");
+        return Component.translatable(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.METAL_BENDER.get())).toLanguageKey());
     }
 
     @Nullable @Override //idk what this does
@@ -96,7 +101,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
 
     @Nonnull @Override //is something to do with helping other mods interact with my block
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return lazyItemHandler.cast();
         }
 
@@ -143,6 +148,9 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
 
     //gets called every tick from the block class
     public static void tick(Level level, BlockPos blockPos, BlockState state, MetalBenderBlockEntity blockEntity) {
+        if (blockEntity.isCrafting()){
+
+        }
         if(hasRecipe(blockEntity)) { //if the container contains a valid craftable recipe
             blockEntity.progress++; //increment crafting progress
             setChanged(level, blockPos, state); //set that the block has been updated
@@ -208,7 +216,7 @@ public class MetalBenderBlockEntity extends BlockEntity implements MenuProvider 
 
     //checks if the container has tool in program slot
     private static boolean hasToolsInToolSlot(MetalBenderBlockEntity entity) {
-        return entity.itemHandler.getStackInSlot(PROGRAM_SLOT).getItem() == ModItemRegistry.HAMMER.get();
+        return entity.itemHandler.getStackInSlot(PROGRAM_SLOT).getItem() == ModItems.HAMMER.get();
     }
 
     //resets the crafting progress

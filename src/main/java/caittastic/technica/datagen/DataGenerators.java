@@ -1,7 +1,5 @@
 package caittastic.technica.datagen;
 
-import caittastic.technica.Technica;
-import caittastic.technica.datagen.loot.ModLootTableProvider;
 import caittastic.technica.datagen.models.ModBlockStatesAndModels;
 import caittastic.technica.datagen.models.ModItemModels;
 import net.minecraft.data.DataGenerator;
@@ -27,8 +25,6 @@ public class DataGenerators {
 
         /*     server     */
         boolean isServer = event.includeServer();
-        generator.addProvider(isServer, new ModRecipes(generator));
-        generator.addProvider(isServer, new ModLootTableProvider(generator));
         generator.addProvider(isServer, new ModBlockTags(generator, helper));
 
 
